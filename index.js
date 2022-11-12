@@ -42,6 +42,8 @@ const connectWithRetry = () => {
 
 connectWithRetry();
 
+app.enable("trust proxy");
+
 app.use(
   session({
     store: new RedisStore({
@@ -60,8 +62,9 @@ app.use(
 
 app.use(express.json());
 
-app.get("/", (req, res) => {
+app.get("/api/v1", (req, res) => {
   res.send("<h2>Hello! from docker container</h2>");
+  console.log("Yeah it ran");
 });
 
 app.use("/api/v1/posts", postRouter);
