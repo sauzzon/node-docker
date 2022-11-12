@@ -15,10 +15,14 @@ const {
 } = require("./config/config");
 
 let redisClient = redis.createClient({
-  host: REDIS_URL,
-  port: REDIS_PORT,
+  socket: {
+    host: REDIS_URL,
+    port: REDIS_PORT,
+  },
+  legacyMode: true,
 });
 
+redisClient.connect().catch(console.error);
 const postRouter = require("./routes/postRoutes");
 const userRouter = require("./routes/userRoutes");
 
